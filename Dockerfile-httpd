@@ -7,11 +7,11 @@ ENV      DEBIAN_FRONTEND noninteractive
 
 RUN   apt-get -qq update --fix-missing && \
       apt-get install --yes apt-utils && \
-      apt-get install --no-install-recommends -y ca-certificates curl less links procps ssl-cert tcpdump vim zip
-
-# install OIDC module and assert its presence in expected location
-RUN   apt-get install --yes --fix-missing libapache2-mod-auth-openidc && \
-      ls -l /usr/lib/apache2/modules/mod_auth_openidc.so
+      apt-get install --no-install-recommends -y ca-certificates curl less links procps ssl-cert tcpdump vim zip && \
+      # install OIDC module and assert its presence in expected location
+      apt-get install --yes --fix-missing libapache2-mod-auth-openidc && \
+      ls -l /usr/lib/apache2/modules/mod_auth_openidc.so \
+      && rm -rf /var/lib/apt/lists/*
 
 # keep stock httpd.conf, just add conf.d directive
 RUN echo "Include conf.d/*.conf" >> /usr/local/apache2/conf/httpd.conf

@@ -24,7 +24,8 @@ RUN cd ${CATALINA_BASE}/webapps/ROOT/jbrowse/plugins && \
      bash setup.sh
 
 # groovy needed for scripts
-RUN apt-get update && apt-get -y install groovy
+RUN apt-get update && apt-get -y install groovy \
+    && rm -rf /var/lib/apt/lists/*
 
 # BLAT and faToTwoBit needed for BLAT searches
 RUN curl -s "http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/blat/blat" -o /usr/local/bin/blat && \
